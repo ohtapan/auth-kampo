@@ -1,0 +1,31 @@
+<title>kampo-auth</title>
+<style>
+  body
+  {
+    width: '100%';
+    word-break: break-all;
+  }
+</style>
+<head>
+</head>
+<body>
+  <script src="./app.js"></script>
+    <div>
+      <label for="userName">ユーザー名</label>
+      <input id="userName" type="text" name="userName">
+    </div>
+    <div>
+      <label for="pw">パスワード</label>
+      <input id="pw" type="text" name="pw">
+    </div>
+    <div>
+      <input id="button" type="button" value="とーくん吐き出し">
+    </div>
+    <div>
+      <p>[Access Token]</p>
+    </div>
+    <textarea id= "accessToken" rows="12" cols="100" readonly></textarea>
+    <div>
+        <input id="copy" type="button" value="クリップボードにコピー">
+    </div>
+</body>
