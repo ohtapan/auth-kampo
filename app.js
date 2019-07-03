@@ -11,8 +11,6 @@ Amplify.default.configure({
 
 var userName;
 var pw;
-var validTime = 3600;
-var countTime = validTime;
 
 window.onload = function () {
 
@@ -29,17 +27,39 @@ window.onload = function () {
         return user
       })
       .then(user => {
-        document.getElementById('accessToken').value = user.signInUserSession.idToken.jwtToken
+        document.getElementById('idToken').value = user.signInUserSession.idToken.jwtToken
+        document.getElementById('accessToken').value = user.signInUserSession.accessToken.jwtToken
+        document.getElementById('refreshToken').value = user.signInUserSession.refreshToken.token
+        
       }) //tokenを表示
       .catch(e => console.error(e))
 
   }
 
-  document.getElementById("copy").onclick = function () {
+  document.getElementById("idCopy").onclick = function () {
+    var Target = document.getElementById('idToken');
+    Target.select();
+    document.execCommand('copy');
+  }
+  
+  document.getElementById("accessCopy").onclick = function () {
     var Target = document.getElementById('accessToken');
     Target.select();
     document.execCommand('copy');
-    Target.value = Target.value;
+  }
+
+  document.getElementById("refreshCopy").onclick = function () {
+    var Target = document.getElementById('refreshToken');
+    Target.select();
+    document.execCommand('copy');
+  }
+  
+  document.getElementById("tokenUpdate").onclick = function () {
+    Amplify.Auth.currentSession()
+    .then(user => {
+      document.getElementById('idToken').value = user.idToken.jwtToken
+      document.getElementById('accessToken').value = user.accessToken.jwtToken
+    })
   }
 
 }

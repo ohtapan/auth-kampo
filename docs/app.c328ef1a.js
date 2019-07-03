@@ -76155,8 +76155,6 @@ Amplify.default.configure({
 });
 var userName;
 var pw;
-var validTime = 3600;
-var countTime = validTime;
 
 window.onload = function () {
   document.getElementById("button").onclick = function () {
@@ -76169,18 +76167,38 @@ window.onload = function () {
 
       return user;
     }).then(function (user) {
-      document.getElementById('accessToken').value = user.signInUserSession.idToken.jwtToken;
+      document.getElementById('idToken').value = user.signInUserSession.idToken.jwtToken;
+      document.getElementById('accessToken').value = user.signInUserSession.accessToken.jwtToken;
+      document.getElementById('refreshToken').value = user.signInUserSession.refreshToken.token;
     }) //tokenを表示
     .catch(function (e) {
       return console.error(e);
     });
   };
 
-  document.getElementById("copy").onclick = function () {
+  document.getElementById("idCopy").onclick = function () {
+    var Target = document.getElementById('idToken');
+    Target.select();
+    document.execCommand('copy');
+  };
+
+  document.getElementById("accessCopy").onclick = function () {
     var Target = document.getElementById('accessToken');
     Target.select();
     document.execCommand('copy');
-    Target.value = Target.value;
+  };
+
+  document.getElementById("refreshCopy").onclick = function () {
+    var Target = document.getElementById('refreshToken');
+    Target.select();
+    document.execCommand('copy');
+  };
+
+  document.getElementById("tokenUpdate").onclick = function () {
+    Amplify.Auth.currentSession().then(function (user) {
+      document.getElementById('idToken').value = user.idToken.jwtToken;
+      document.getElementById('accessToken').value = user.accessToken.jwtToken;
+    });
   };
 };
 },{"isomorphic-fetch":"node_modules/isomorphic-fetch/fetch-npm-browserify.js","aws-amplify":"node_modules/aws-amplify/lib/index.js"}],"node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
@@ -76211,7 +76229,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "50993" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "64463" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
