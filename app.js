@@ -11,6 +11,9 @@ Amplify.default.configure({
 
 var userName;
 var pw;
+var word;
+
+var apiName = "kampo-sho-search-agw";
 
 window.onload = function () {
 
@@ -56,10 +59,14 @@ window.onload = function () {
   
   document.getElementById("tokenUpdate").onclick = function () {
     Amplify.Auth.currentSession()
-    .then(user => {
+    .then(User => {
       document.getElementById('idToken').value = user.idToken.jwtToken
       document.getElementById('accessToken').value = user.accessToken.jwtToken
     })
   }
 
+  document.getElementById("search").onclick = function () {
+    word = document.getElementById('word').value;
+    document.getElementById('result').value = word;
+  }
 }

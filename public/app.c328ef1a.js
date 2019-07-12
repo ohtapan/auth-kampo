@@ -76155,6 +76155,7 @@ Amplify.default.configure({
 });
 var userName;
 var pw;
+var word;
 
 window.onload = function () {
   document.getElementById("button").onclick = function () {
@@ -76195,10 +76196,15 @@ window.onload = function () {
   };
 
   document.getElementById("tokenUpdate").onclick = function () {
-    Amplify.Auth.currentSession().then(function (user) {
+    Amplify.Auth.currentSession().then(function (User) {
       document.getElementById('idToken').value = user.idToken.jwtToken;
       document.getElementById('accessToken').value = user.accessToken.jwtToken;
     });
+  };
+
+  document.getElementById("search").onclick = function () {
+    word = document.getElementById('word').value;
+    document.getElementById('result').value = word;
   };
 };
 },{"isomorphic-fetch":"node_modules/isomorphic-fetch/fetch-npm-browserify.js","aws-amplify":"node_modules/aws-amplify/lib/index.js"}],"node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
@@ -76229,7 +76235,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "64369" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "64561" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
