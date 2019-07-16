@@ -1,19 +1,30 @@
-require("isomorphic-fetch")
-const Amplify = require("aws-amplify")
+require("isomorphic-fetch");
+const Amplify = require("aws-amplify");
+
 Amplify.default.configure({
   Auth: {
     identityPoolId: "ap-northeast-1:a2c584fa-96df-42f4-8b2a-fec689415669",
     region: "ap-northeast-1",
     userPoolId: "ap-northeast-1_udVhD0eGu",
     userPoolWebClientId: "127phg37vg3jmrngjqvoacnon7"
+  },
+  API: {
+    endpoints: [
+      {
+        name: "kampo-sho-search-agw",
+        endpoint: "https://p95hnwcvz2.execute-api.ap-northeast-1.amazonaws.com",
+        region: "ap-northeast-1"
+      }
+    ]
   }
 })
 
 var userName;
 var pw;
-var word;
 
-var apiName = "kampo-sho-search-agw";
+var keys;
+var attribute = "symptoms";
+var mode = "or";
 
 window.onload = function () {
 
@@ -66,7 +77,28 @@ window.onload = function () {
   }
 
   document.getElementById("search").onclick = function () {
-    word = document.getElementById('word').value;
-    document.getElementById('result').value = word;
+
+    keys = document.getElementById('word').value;
+
+    let apiName = 'kampo-sho-search-agw';
+    let path = '/stage/resource';
+    let myInit = {
+    body: JSON.stringify({
+      keys,
+      attribute,
+      mode,
+    }),
+    headers: {
+      "Content-Type": "application/json; charset=utf-8"
+    }
+    }
+
+    Amplify.API.post(apiName, path, myInit).then(response => {
+      //document.getElementById('result').value = response;
+      console.log(JSON.stringify(response));
+    }).catch(error => {
+        console.log(error.response)
+    });
+
   }
 }

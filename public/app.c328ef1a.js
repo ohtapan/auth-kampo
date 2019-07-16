@@ -76151,11 +76151,20 @@ Amplify.default.configure({
     region: "ap-northeast-1",
     userPoolId: "ap-northeast-1_udVhD0eGu",
     userPoolWebClientId: "127phg37vg3jmrngjqvoacnon7"
+  },
+  API: {
+    endpoints: [{
+      name: "kampo-sho-search-agw",
+      endpoint: "https://p95hnwcvz2.execute-api.ap-northeast-1.amazonaws.com",
+      region: "ap-northeast-1"
+    }]
   }
 });
 var userName;
 var pw;
-var word;
+var keys;
+var attribute = "symptoms";
+var mode = "or";
 
 window.onload = function () {
   document.getElementById("button").onclick = function () {
@@ -76203,8 +76212,25 @@ window.onload = function () {
   };
 
   document.getElementById("search").onclick = function () {
-    word = document.getElementById('word').value;
-    document.getElementById('result').value = word;
+    keys = document.getElementById('word').value;
+    var apiName = 'kampo-sho-search-agw';
+    var path = '/stage/resource';
+    var myInit = {
+      body: JSON.stringify({
+        keys: keys,
+        attribute: attribute,
+        mode: mode
+      }),
+      headers: {
+        "Content-Type": "application/json; charset=utf-8"
+      }
+    };
+    Amplify.API.post(apiName, path, myInit).then(function (response) {
+      //document.getElementById('result').value = response;
+      console.log(JSON.stringify(response));
+    }).catch(function (error) {
+      console.log(error.response);
+    });
   };
 };
 },{"isomorphic-fetch":"node_modules/isomorphic-fetch/fetch-npm-browserify.js","aws-amplify":"node_modules/aws-amplify/lib/index.js"}],"node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
@@ -76235,7 +76261,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "64561" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "57833" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
