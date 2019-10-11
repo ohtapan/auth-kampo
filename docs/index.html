@@ -17,28 +17,25 @@
       <input id="pw" type="password" name="pw">
     </div>
     <div>
-      <input id="button" type="button" value="とーくん吐き出し">
+      <input id="signIn" type="button" value="サインイン">
+      <input id="signOut" type="button" value="サインアウト">
     </div>
     <div>
         <p>[Id Token]</p>
         <textarea id="idToken" rows="12" cols="100" readonly=""></textarea>
         <br>
         <input id="idCopy" type="button" value="クリップボードにコピー">
-        <br>
-    </div>
-    <div>
-      <p>[Access Token]</p>
-      <textarea id="accessToken" rows="12" cols="100" readonly=""></textarea>
-      <br>
-      <input id="accessCopy" type="button" value="クリップボードにコピー">
-      <br>
-    </div>
-    <div>
-        <p>[Refresh Token]</p>
-        <textarea id="refreshToken" rows="20" cols="100" readonly=""></textarea>
-        <br>
-        <input id="refreshCopy" type="button" value="クリップボードにコピー">
         <input id="tokenUpdate" type="button" value="リフレッシュトークンを使用して更新">
         <br>
-      </div>
+    </div>
+    <div>
+        <p>[Test API]</p>
+        <input id="word" type="text">
+        <input id="search" type="button" value="検索">
+        <input id="select" name="select" type="radio" value="and" checked="">and検索
+        <input id="select" name="select" type="radio" value="or">or検索
+        <br>
+        <textarea id="result" rows="20" cols="40" readonly=""></textarea>
+        <br>
+    </div>
 </body>
