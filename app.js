@@ -24,7 +24,8 @@ var pw;
 
 var keys;
 var attribute = "symptoms";
-var mode = "or";
+var mode;
+var id_token;
 
 Amplify.Auth.signOut({ global: true })
     .then(data => {
@@ -33,11 +34,10 @@ Amplify.Auth.signOut({ global: true })
     .catch(err => console.log(err));
 
 window.onload = function () {
-
   document.getElementById("signIn").onclick = function () {
 
-    userName = document.getElementById("userName").value
-    pw = document.getElementById("pw").value
+    userName = document.getElementById("userName").value;
+    pw = document.getElementById("pw").value;
 
     Amplify.Auth.signIn(userName, pw)
       .then(user => {
@@ -47,7 +47,8 @@ window.onload = function () {
         return user
       })
       .then(user => {
-        document.getElementById('idToken').value = user.signInUserSession.idToken.jwtToken; 
+        // document.getElementById('idToken').value = user.signInUserSession.idToken.jwtToken; 
+        id_token = user.signInUserSession.idToken.jwtToken; 
         alert("サインインしました");  
       }) //tokenを表示
       .catch(e => {
@@ -61,12 +62,13 @@ window.onload = function () {
     Amplify.Auth.signOut({ global: true })
     .then(data => {
       console.log(data);
-      document.getElementById('idToken').value = "";
+      // document.getElementById('idToken').value = "";
+      id_token = "";
       alert("サインアウトしました");
     })
     .catch(err => console.log(err));
   }
-
+/*
   document.getElementById("idCopy").onclick = function () {
     var Target = document.getElementById('idToken');
     Target.select();
@@ -79,10 +81,12 @@ window.onload = function () {
       document.getElementById('idToken').value = user.idToken.jwtToken;
     })
   }
+  */
 
   document.getElementById("search").onclick = function () {
 
     keys = document.getElementById('word').value;
+    mode = document.getElementById('select').value;
 
     let apiName = 'kampo-sho-search-agw';
     let path = '/resource';
@@ -94,12 +98,12 @@ window.onload = function () {
     },
     headers: {
       "Content-Type": "application/json; charset=utf-8",
-      "Authorization": document.getElementById('idToken').value
+      "Authorization": id_token
     }
     }
 
     Amplify.API.post(apiName, path, myInit).then(response => {
-      document.getElementById('result').value = JSON.stringify(response);
+      document.getElementById('result').value = response.map(function(o){return o.name;}).join("\n");
       console.log(response);
     }).catch(error => {
         console.log(error.response);

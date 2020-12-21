@@ -76169,8 +76169,7 @@ var userName;
 var pw;
 var keys;
 var attribute = "symptoms";
-var mode;
-var id_token;
+var mode = "or";
 
 _awsAmplify.default.Auth.signOut({
   global: true
@@ -76192,8 +76191,7 @@ window.onload = function () {
 
       return user;
     }).then(function (user) {
-      // document.getElementById('idToken').value = user.signInUserSession.idToken.jwtToken; 
-      id_token = user.signInUserSession.idToken.jwtToken;
+      document.getElementById('idToken').value = user.signInUserSession.idToken.jwtToken;
       alert("サインインしました");
     }) //tokenを表示
     .catch(function (e) {
@@ -76206,33 +76204,28 @@ window.onload = function () {
     _awsAmplify.default.Auth.signOut({
       global: true
     }).then(function (data) {
-      console.log(data); // document.getElementById('idToken').value = "";
-
-      id_token = "";
+      console.log(data);
+      document.getElementById('idToken').value = "";
       alert("サインアウトしました");
     }).catch(function (err) {
       return console.log(err);
     });
   };
-  /*
-    document.getElementById("idCopy").onclick = function () {
-      var Target = document.getElementById('idToken');
-      Target.select();
-      document.execCommand('copy');
-    }
-    
-    document.getElementById("tokenUpdate").onclick = function () {
-      Amplify.Auth.currentSession()
-      .then(user => {
-        document.getElementById('idToken').value = user.idToken.jwtToken;
-      })
-    }
-    */
 
+  document.getElementById("idCopy").onclick = function () {
+    var Target = document.getElementById('idToken');
+    Target.select();
+    document.execCommand('copy');
+  };
+
+  document.getElementById("tokenUpdate").onclick = function () {
+    _awsAmplify.default.Auth.currentSession().then(function (user) {
+      document.getElementById('idToken').value = user.idToken.jwtToken;
+    });
+  };
 
   document.getElementById("search").onclick = function () {
     keys = document.getElementById('word').value;
-    mode = document.getElementById('select').value;
     var apiName = 'kampo-sho-search-agw';
     var path = '/resource';
     var myInit = {
@@ -76243,14 +76236,12 @@ window.onload = function () {
       },
       headers: {
         "Content-Type": "application/json; charset=utf-8",
-        "Authorization": id_token
+        "Authorization": user.idToken.jwtToken
       }
     };
 
     _awsAmplify.default.API.post(apiName, path, myInit).then(function (response) {
-      document.getElementById('result').value = response.map(function (o) {
-        return o.name;
-      }).join("\n");
+      document.getElementById('result').value = JSON.stringify(response);
       console.log(response);
     }).catch(function (error) {
       console.log(error.response);
@@ -76286,7 +76277,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "57860" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "57373" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

@@ -1,15 +1,13 @@
 <title>kampo-auth</title>
-<style>
-  body
+<style>body
   {
     width: '100%';
     word-break: break-all;
-  }
-</style>
+  }</style>
 <head>
 </head>
 <body>
-  <script src="./app.js"></script>
+  <script src="/app.c328ef1a.js"></script>
     <div>
       <label for="userName">ユーザー名</label>
       <input id="userName" type="text" name="userName">
@@ -22,24 +20,22 @@
       <input id="signIn" type="button" value="サインイン">
       <input id="signOut" type="button" value="サインアウト">
     </div>
-    <!--
     <div>
         <p>[Id Token]</p>
-        <textarea id= "idToken" rows="12" cols="100" readonly></textarea>
-        </br>
+        <textarea id="idToken" rows="12" cols="100" readonly=""></textarea>
+        <br>
         <input id="idCopy" type="button" value="クリップボードにコピー">
         <input id="tokenUpdate" type="button" value="リフレッシュトークンを使用して更新">
-        </br>
+        <br>
     </div>
-    -->
     <div>
-        <p>[証情報検索]</p>
+        <p>[Test API]</p>
         <input id="word" type="text">
         <input id="search" type="button" value="検索">
-        <input id="select" name="select" type="radio" value="and" checked>and検索
+        <input id="select" name="select" type="radio" value="and" checked="">and検索
         <input id="select" name="select" type="radio" value="or">or検索
-        </br>
-        <textarea id= "result" rows="20" cols="40" readonly></textarea>
-        </br>
+        <br>
+        <textarea id="result" rows="20" cols="40" readonly=""></textarea>
+        <br>
     </div>
 </body>
